@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open My Heart ❤️</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body, html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    background: rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  }
+
+  input {
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    transition: 0.3s;
+  }
+
+  input:focus {
+    box-shadow: 0 0 30px #ff3c6e;
+  }
+
+  button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background: #fff;
+    color: #ff3c6e;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    animation: pulse 2s infinite;
+  }
+
+  button:hover {
+    background: #ff3c6e;
+    color: white;
+    box-shadow: 0 0 40px #fff;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* Floating hearts animation */
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(-45deg);
+    animation: float 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+  }
+
+  .heart::before { top: -10px; left: 0; }
+  .heart::after { left: 10px; top: 0; }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(-45deg); opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-800px) rotate(-45deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Write the password to open my heart 💖</h1>
+  <input type="text" id="password" placeholder="Enter password here"><br>
+  <button onclick="checkPassword()">Open 💌</button>
+</div>
+
+<script>
+// Password check
+function checkPassword() {
+  const pass = document.getElementById("password").value.toUpperCase();
+  if(pass === "PELUMI") {
+    window.location.href = "val.html";
+  } else {
+    alert("Wrong password 😢 Try again!");
+  }
+}
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+  heart.style.width = 15 + Math.random() * 25 + "px";
+  heart.style.height = heart.style.width;
+  heart.style.opacity = Math.random() * 0.8 + 0.2;
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}
+
+setInterval(createHeart, 200);
+</script>
+
+</body>
+</html>

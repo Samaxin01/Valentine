@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine for My Love ❤️</title>
+<style>
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body, html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background: #ff758c;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+  }
+
+  #slideshow {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  #slideshow img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: fade 5s linear forwards;
+  }
+
+  @keyframes fade {
+    0% { opacity:0; }
+    20% { opacity:1; }
+    40% { opacity:0; }
+    60% { opacity:0; }
+    80% { opacity:0; }
+    100% { opacity:0; }
+  }
+
+  #messageContainer {
+    display: none;
+    padding: 10px;
+  }
+
+  #message {
+    font-size: 1.5rem;
+    margin: 20px;
+    line-height: 1.6;
+  }
+
+  #flipCard {
+    width: 80%;
+    max-width: 300px;
+    height: 150px;
+    perspective: 1000px;
+    margin-top: 20px;
+    display: none;
+  }
+
+  #flipCardInner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+
+  #flipCard:hover #flipCardInner {
+    transform: rotateY(180deg);
+  }
+
+  .flipCardFront, .flipCardBack {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  }
+
+  .flipCardFront {
+    background-color: #fff;
+    color: #ff3c6e;
+  }
+
+  .flipCardBack {
+    background-color: #ff3c6e;
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+  /* Responsive text */
+  @media (max-width: 480px) {
+    #message { font-size: 1.2rem; }
+    #flipCard { height: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="slideshow">
+  <img src="favicon.png" style="animation-delay:0s">
+  <img src="favicon.png" style="animation-delay:1s">
+  <img src="favicon.png" style="animation-delay:2s">
+  <img src="favicon.png" style="animation-delay:3s">
+  <img src="pic5.jpg" style="animation-delay:4s">
+</div>
+
+<div id="messageContainer">
+  <div id="message"></div>
+
+  <div id="flipCard">
+    <div id="flipCardInner">
+      <div class="flipCardFront">Click to flip 💌</div>
+      <div class="flipCardBack" id="flipText"></div>
+    </div>
+  </div>
+</div>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Lovely messages for typing
+const lovelyMessages = [
+  "You make my heart skip a beat 💖",
+  "Every day with you is a blessing 🌸",
+  "You are my sunshine ☀️",
+  "I adore your smile 😊",
+  "You complete me ❤️",
+  "My love for you is endless 💕",
+  "You are my everything 💝",
+  "Life is better with you 🌹",
+  "I cherish every moment with you 💌",
+  "I Love you, Pelumi 💖"
+];
+
+function typeMessages(messages, container, callback) {
+  let index = 0;
+  function typeNext() {
+    if(index < messages.length){
+      let text = messages[index];
+      let i = 0;
+      function typeChar() {
+        if(i <= text.length){
+          container.innerHTML = text.slice(0,i);
+          i++;
+          setTimeout(typeChar, 50);
+        } else {
+          setTimeout(()=>{ index++; typeNext(); }, 500);
+        }
+      }
+      typeChar();
+    } else if(callback) callback();
+  }
+  typeNext();
+}
+
+// Show messages after slideshow
+setTimeout(()=>{
+  document.getElementById("messageContainer").style.display = "block";
+  const messageDiv = document.getElementById("message");
+  typeMessages(lovelyMessages, messageDiv, ()=> {
+    // Show flip card after messages
+    document.getElementById("flipCard").style.display = "block";
+  });
+}, 5000);
+
+// Flip card messages
+const flipMessages = [
+  "You light up my life 🌟.......tap the card again",
+  "Your laugh is my favorite sound 😂",
+  "Being with you is pure joy 💖",
+  "You inspire me every day ✨",
+  "I am so lucky to have you ❤️"
+];
+
+let flipIndex = 0;
+const flipTextDiv = document.getElementById("flipText");
+
+document.getElementById("flipCardInner").addEventListener("click", function(){
+  flipTextDiv.innerHTML = "";
+  typeMessages([flipMessages[flipIndex]], flipTextDiv);
+  flipIndex = (flipIndex + 1) % flipMessages.length;
+});
+</script>
+
+</body>
+</html>
